@@ -1,0 +1,25 @@
+ToDo list
+-------------
+Functionality:
+  USER
+	* user can add task name	
+	* user can add task details
+	* user can mark task as done
+	* user can update task name or details
+	* user can update password
+	* user can delete task
+	* user can signup
+	* user can login
+	* forget password with reset
+	* send mails when signup and reset password
+	
+  ADMIN
+	* admin can get users with their tasks
+	* delete users
+--------------------------------------------------------------------
+Schema:
+  USER
+	name , email , password , confirmpass , photo , tasks
+  TASK
+	name , details , user , completed , photo , 
+

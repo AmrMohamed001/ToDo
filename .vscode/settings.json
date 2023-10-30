@@ -1,0 +1,14 @@
+{
+  "editor.fontSize": 19,
+  "files.autoSave": "onFocusChange",
+  "editor.wordWrap": "on",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "terminal.integrated.fontSize": 15,
+  //"terminal.integrated.fontFamily": "Consolas",
+  "terminal.integrated.lineHeight": 1.1,
+  //"editor.fontFamily": "'DejaVu Sans Mono for Powerline'"
+  "terminal.integrated.tabs.title": "${sequence}",
+  "terminal.integrated.tabs.enableAnimation": false,
+  "terminal.integrated.minimumContrastRatio": 1
+}

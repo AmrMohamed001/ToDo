@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #0074d9;
+            color: #fff;
+            padding: 10px;
+            font-size: 24px;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        .task-text {
+            flex: 1;
+        }
+
+        .task-details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .task-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-delete, .task-edit, .task-mark-done {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .task-delete {
+            background: #ff4136;
+            color: #fff;
+        }
+
+        .task-edit {
+            background: #f39c12;
+            color: #fff;
+        }
+
+        .task-mark-done {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .add-task input {
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .add-task textarea {
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .add-task button {
+            background: #0074d9;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #0074d9;
+            color: #fff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    Todo List
+</div>
+<div class="container">
+    <div class="add-task">
+        <input type="text" id="new-task-name" placeholder="Task Name"/>
+        <textarea id="new-task-details" placeholder="Task Details"></textarea>
+        <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="todo-list">
+        <!-- Tasks will be dynamically added here -->
+    </ul>
+</div>
+<div class="footer">
+    &copy; 2023 Your Company
+</div>
+
+<script>
+    function addTask() {
+        const taskName = document.getElementById('new-task-name').value;
+        const taskDetails = document.getElementById('new-task-details').value;
+
+        if (taskName.trim() === '') {
+            return;
+        }
+
+        const ul = document.getElementById('todo-list');
+        const li = document.createElement('li');
+        li.innerHTML = `
+                <div class="task-text">${taskName}</div>
+                <div class="task-actions">
+                    <span class="task-edit" onclick="editTask(this)">Edit</span>
+                    <span class="task-mark-done" onclick="markDone(this)">Done</span>
+                    <span class="task-delete" onclick="deleteTask(this)">Delete</span>
+                </div>
+                <div class="task-details">
+                    <p>${taskDetails}</p>
+                </div>
+            `;
+
+        ul.appendChild(li);
+        document.getElementById('new-task-name').value = '';
+        document.getElementById('new-task-details').value = '';
+    }
+
+    function deleteTask(deleteButton) {
+        const li = deleteButton.parentElement.parentElement;
+        li.remove();
+    }
+
+    function editTask(editButton) {
+        const li = editButton.parentElement.parentElement;
+        const taskText = li.querySelector('.task-text');
+        const newTaskName = prompt('Edit Task Name:', taskText.textContent);
+
+        if (newTaskName !== null && newTaskName.trim() !== '') {
+            taskText.textContent = newTaskName;
+        }
+    }
+
+    function markDone(markButton) {
+        const li = markButton.parentElement.parentElement;
+        li.classList.toggle('task-done');
+    }
+
+    document.querySelectorAll('.task-text').forEach(function (taskText) {
+        taskText.addEventListener('click', function () {
+            const details = taskText.nextElementSibling;
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+</script>
+</body>
+</html>
