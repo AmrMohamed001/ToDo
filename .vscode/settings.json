@@ -1,5 +1,7 @@
 {
   "editor.fontSize": 19,
+  // "font-family": "Fira Code",
+  "editor.fontLigatures": true,
   "files.autoSave": "onFocusChange",
   "editor.wordWrap": "on",
   "editor.cursorBlinking": "smooth",

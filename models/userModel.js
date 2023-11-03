@@ -46,7 +46,8 @@ const schema = new mongoose.Schema({
     active: {
         type: Boolean,
         default: true,
-    }
+    },
+    changePasswordAt: Date
 }, {
     timestamps: true
 })
@@ -55,6 +56,7 @@ schema.pre(/^find/, function (next) {
     this.populate('tasks')
     next()
 })
+// to encrypt the password
 schema.pre('save', async function (next) {
     if (!this.isModified('password')) return next()
     this.password = await bcrypt.hash(this.password, 12)
@@ -64,6 +66,13 @@ schema.pre('save', async function (next) {
 /////////////////////////////////////////////////////////////
 schema.methods.checkPassword = async function (userP, storedP) {
     return await bcrypt.compare(userP, storedP)
+}
+schema.methods.userChangePassword = function (jwtIat) {
+    if (this.changePasswordAt) {
+        const changeInStamp = this.changePasswordAt.getTime() / 1000
+        return changeInStamp > jwtIat
+    }
+    return false
 }
 /////////////////////////////////////////////////////////////
 const User = mongoose.model('User', schema)
